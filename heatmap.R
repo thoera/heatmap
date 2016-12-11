@@ -28,7 +28,7 @@ labels = c("Age", "Games", "Wins", "Losses", "Minutes",
 
 # Plot the heatmap and tweak a bit the theme.
 ggplot(nba_long, aes(x = variable, y = PLAYER)) +
-  geom_tile(aes(fill = rescale_value), colour = "white") +
+  geom_tile(aes(fill = rescale_value), color = "white") +
   scale_fill_gradient(low = "white", high = "#7495b9") +
   scale_x_discrete(labels = labels, expand = c(0, 0)) +
   scale_y_discrete(limits = arrange(nba, PTS)[["PLAYER"]],
@@ -49,7 +49,7 @@ ggplot(nba_long, aes(x = variable, y = PLAYER)) +
 # We would like to use a different color for each group of statistics (offense,
 # defense, other). But using different gradient colors for different categories
 # is not that easy in ggplot2.
-# A way to get to do it is to scale each group of variables into different
+# One way to do it is to scale each group of variables into different
 # ranges that don't overlap and then use scale_fill_gradientn to map
 # each of these regions to different color gradients.
 
@@ -78,14 +78,15 @@ nba_long <- nba_long %>%
                             .$variable %in% other ~ 2),
          rescale_offset = rescale_value + 100 * group_)
 
+# Define the ranges and the colors to use.
 gradientn <- range(nba_long$rescale_value) + rep(c(0, 100, 200), each = 2)
 colors <- c("white", "#7495b9", "white", "#656684", "white", "#633a45")
 
 # Plot the heatmap with a different color for each set of stats and
 # order the variables by group.
 ggplot(nba_long, aes(variable, PLAYER)) +
-  geom_tile(aes(fill = rescale_offset), colour = "white") +
-  scale_fill_gradientn(colours = colors,
+  geom_tile(aes(fill = rescale_offset), color = "white") +
+  scale_fill_gradientn(colors = colors,
                        values = scales::rescale(gradientn)) +
   scale_x_discrete(limits = c(offense, defense, other), labels = labels,
                    expand = c(0, 0)) +
