@@ -6,8 +6,8 @@ nba <- read.table("nba_top50_2016.txt", sep = ";",
                   header = TRUE, stringsAsFactors = FALSE)
 str(nba)
 
-# Drop "TEAM" which is a variable of type character, reshape the dataset
-# to long format and rescale the value between 0 and 1 by variable.
+# Drop "TEAM", reshape the dataset to long format and
+# rescale the values between 0 and 1 for each variable.
 nba_long <- nba %>%
   select(-TEAM) %>%
   reshape2::melt(id.vars = "PLAYER") %>%
@@ -60,6 +60,7 @@ defense <- c("OREB", "DREB", "REB", "STL", "BLK")
 other <- c("AGE", "GP", "W", "L", "MIN", "TOV",
            "PF", "DD2", "TD3", "plus_minus")
 
+# Reorder the labels.
 labels = c("Points", "Field Goals Made", "Field Goals Attempted",
            "Field Goal Percentage", "Three-Point Made",
            "Three-Point Attempted", "Three-Point Percentage",
