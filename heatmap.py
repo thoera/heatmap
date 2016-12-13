@@ -16,12 +16,12 @@ nba = pd.DataFrame(MinMaxScaler().fit_transform(nba),
                    index=nba.index, columns=nba.columns)
 
 # Plot the heatmap.
-plt.figure(figsize=(12, 9))
+plt.figure(figsize=(16, 12))
 
 heatmap = sns.heatmap(nba, linewidths=0.2, cbar=False,
                       cmap=sns.light_palette("#7495b9", as_cmap=True))
 
-# A vector of labels.
+# Create the labels, remove the axis titles and add a title to the plot.
 heatmap.set_xticklabels(["Age", "Games", "Wins", "Losses", "Minutes",
                          "Points", "Field Goals Made", "Field Goals Attempted",
                          "Field Goal Percentage", "Three-Point Made",
@@ -31,13 +31,12 @@ heatmap.set_xticklabels(["Age", "Games", "Wins", "Losses", "Minutes",
                          "Defensive Rebounds", "Rebounds", "Assists",
                          "Turnovers", "Steals", "Blocks", "Personal Fouls",
                          "Double doubles", "Triple doubles", "Plus Minus"],
-                        rotation=30, ha="right")
-
-# Remove the axis titles and add a title to the plot.
+                        rotation=30, ha="right", fontsize=12, color="#666666")
+heatmap.set_yticklabels(nba.index, fontsize=12, color="#666666")
 plt.xlabel("")
 plt.ylabel("")
 plt.title("NBA's top 50 points leaders\nSeason 2015-16", loc="left",
-          fontsize=22)
+          fontsize=28, color="#4d4d4d")
 
 # -----
 
@@ -62,7 +61,7 @@ defense = (nba == nba) & [col not in defense for col in nba.columns]
 other = (nba == nba) & [col not in other for col in nba.columns]
 
 # Plot the three heatmaps.
-plt.figure(figsize=(12, 9))
+plt.figure(figsize=(16, 12))
 
 heatmap = sns.heatmap(nba, linewidths=0.2, cbar=False, mask=offense,
                       cmap=sns.light_palette("#7495b9", as_cmap=True))
@@ -71,7 +70,7 @@ heatmap = sns.heatmap(nba, linewidths=0.2, cbar=False, mask=defense,
 heatmap = sns.heatmap(nba, linewidths=0.2, cbar=False, mask=other,
                       cmap=sns.light_palette("#633a45", as_cmap=True))
 
-# Reorder the labels.
+# Reorder the labels, remove the axis titles and add a title to the plot.
 heatmap.set_xticklabels(["Points", "Field Goals Made", "Field Goals Attempted",
                          "Field Goal Percentage", "Three-Point Made",
                          "Three-Point Attempted", "Three-Point Percentage",
@@ -82,10 +81,9 @@ heatmap.set_xticklabels(["Points", "Field Goals Made", "Field Goals Attempted",
                          "Wins", "Losses", "Minutes", "Turnovers",
                          "Personal Fouls", "Double doubles",
                          "Triple doubles", "Plus Minus"],
-                        rotation=30, ha="right")
-
-# Remove the axis titles and add a title to the plot.
+                        rotation=30, ha="right", fontsize=12, color="#666666")
+heatmap.set_yticklabels(nba.index, fontsize=12, color="#666666")
 plt.xlabel("")
 plt.ylabel("")
 plt.title("NBA's top 50 points leaders\nSeason 2015-16", loc="left",
-          fontsize=22)
+          fontsize=28, color="#4d4d4d")
